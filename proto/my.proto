@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package router;
+
+option go_package = "ionov.router.v1;routerv1";
+
+// Auth is service for managing permissions and roles.
+service Api {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+
+  rpc SendCommand (SendCommandRequest) returns (SendCommandResponse);
+
+  rpc Poll (PollRequest) returns (PollResponseArray);
+
+  rpc Ack (AckRequest) returns (AckResponse);
+}
+
+message RegisterRequest {
+  string serial_number = 1;
+  string ip_address = 2;
+}
+
+message RegisterResponse {
+  string routers_uuid = 1;
+}
+
+message SendCommandRequest {
+  repeated string router_id = 1;
+  string command_type = 3;
+  string payload = 4;
+}
+
+message SendCommandResponse {
+  string status = 1; // pending if ok
+}
+
+message PollRequest {
+  string router_id = 1;
+  string serial_number = 2;
+}
+
+message PollResponse {
+  string command_id = 1;
+  string type = 2;
+  string payload = 3;
+}
+
+message PollResponseArray {
+  repeated PollResponse commands = 1;
+}
+
+message CommandInfo{
+  string command_id = 1;
+  string status = 2;
+}
+
+message AckRequest {
+  string router_id = 1;
+  repeated CommandInfo acks = 2;
+}
+
+message AckResponse {
+  string command_id = 1;
+  string type = 2;
+  string payload = 3;
+}
