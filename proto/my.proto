@@ -43,9 +43,10 @@ message PollRequest {
 }
 
 message PollResponse {
-  string command_id = 1;
+  string id = 1;
   string type = 2;
   string payload = 3;
+  string status = 4;
 }
 
 message PollResponseArray {
@@ -59,11 +60,11 @@ message CommandInfo{
 
 message AckRequest {
   string router_id = 1;
-  repeated CommandInfo acks = 2;
+  string serial_number = 2;
+  repeated CommandInfo acks = 3;
 }
 
 message AckResponse {
   string command_id = 1;
-  string type = 2;
-  string payload = 3;
+  string status = 2;
 }

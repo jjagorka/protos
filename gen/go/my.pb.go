@@ -291,9 +291,10 @@ func (x *PollRequest) GetSerialNumber() string {
 
 type PollResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	CommandId     string                 `protobuf:"bytes,1,opt,name=command_id,json=commandId,proto3" json:"command_id,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
 	Payload       string                 `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
+	Status        string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -328,9 +329,9 @@ func (*PollResponse) Descriptor() ([]byte, []int) {
 	return file_my_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *PollResponse) GetCommandId() string {
+func (x *PollResponse) GetId() string {
 	if x != nil {
-		return x.CommandId
+		return x.Id
 	}
 	return ""
 }
@@ -345,6 +346,13 @@ func (x *PollResponse) GetType() string {
 func (x *PollResponse) GetPayload() string {
 	if x != nil {
 		return x.Payload
+	}
+	return ""
+}
+
+func (x *PollResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
 	}
 	return ""
 }
@@ -448,7 +456,8 @@ func (x *CommandInfo) GetStatus() string {
 type AckRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RouterId      string                 `protobuf:"bytes,1,opt,name=router_id,json=routerId,proto3" json:"router_id,omitempty"`
-	Acks          []*CommandInfo         `protobuf:"bytes,2,rep,name=acks,proto3" json:"acks,omitempty"`
+	SerialNumber  string                 `protobuf:"bytes,2,opt,name=serial_number,json=serialNumber,proto3" json:"serial_number,omitempty"`
+	Acks          []*CommandInfo         `protobuf:"bytes,3,rep,name=acks,proto3" json:"acks,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -490,6 +499,13 @@ func (x *AckRequest) GetRouterId() string {
 	return ""
 }
 
+func (x *AckRequest) GetSerialNumber() string {
+	if x != nil {
+		return x.SerialNumber
+	}
+	return ""
+}
+
 func (x *AckRequest) GetAcks() []*CommandInfo {
 	if x != nil {
 		return x.Acks
@@ -500,8 +516,7 @@ func (x *AckRequest) GetAcks() []*CommandInfo {
 type AckResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CommandId     string                 `protobuf:"bytes,1,opt,name=command_id,json=commandId,proto3" json:"command_id,omitempty"`
-	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
-	Payload       string                 `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -543,16 +558,9 @@ func (x *AckResponse) GetCommandId() string {
 	return ""
 }
 
-func (x *AckResponse) GetType() string {
+func (x *AckResponse) GetStatus() string {
 	if x != nil {
-		return x.Type
-	}
-	return ""
-}
-
-func (x *AckResponse) GetPayload() string {
-	if x != nil {
-		return x.Payload
+		return x.Status
 	}
 	return ""
 }
@@ -578,27 +586,27 @@ const file_my_proto_rawDesc = "" +
 	"\x12invalid_router_ids\x18\x03 \x03(\tR\x10invalidRouterIds\"O\n" +
 	"\vPollRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12#\n" +
-	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\"[\n" +
-	"\fPollResponse\x12\x1d\n" +
-	"\n" +
-	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x12\n" +
+	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\"d\n" +
+	"\fPollResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x18\n" +
-	"\apayload\x18\x03 \x01(\tR\apayload\"E\n" +
+	"\apayload\x18\x03 \x01(\tR\apayload\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\"E\n" +
 	"\x11PollResponseArray\x120\n" +
 	"\bcommands\x18\x01 \x03(\v2\x14.router.PollResponseR\bcommands\"D\n" +
 	"\vCommandInfo\x12\x1d\n" +
 	"\n" +
 	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status\"R\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"w\n" +
 	"\n" +
 	"AckRequest\x12\x1b\n" +
-	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12'\n" +
-	"\x04acks\x18\x02 \x03(\v2\x13.router.CommandInfoR\x04acks\"Z\n" +
+	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12#\n" +
+	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\x12'\n" +
+	"\x04acks\x18\x03 \x03(\v2\x13.router.CommandInfoR\x04acks\"D\n" +
 	"\vAckResponse\x12\x1d\n" +
 	"\n" +
-	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x12\n" +
-	"\x04type\x18\x02 \x01(\tR\x04type\x12\x18\n" +
-	"\apayload\x18\x03 \x01(\tR\apayload2\xf4\x01\n" +
+	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status2\xf4\x01\n" +
 	"\x03Api\x12=\n" +
 	"\bRegister\x12\x17.router.RegisterRequest\x1a\x18.router.RegisterResponse\x12F\n" +
 	"\vSendCommand\x12\x1a.router.SendCommandRequest\x1a\x1b.router.SendCommandResponse\x126\n" +
