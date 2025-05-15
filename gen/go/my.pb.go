@@ -178,10 +178,12 @@ func (x *SendCommandRequest) GetPayload() string {
 }
 
 type SendCommandResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"` // pending if ok
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Status           string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"` // "ok", "partial", "error"
+	FailedRouterIds  []string               `protobuf:"bytes,2,rep,name=failed_router_ids,json=failedRouterIds,proto3" json:"failed_router_ids,omitempty"`
+	InvalidRouterIds []string               `protobuf:"bytes,3,rep,name=invalid_router_ids,json=invalidRouterIds,proto3" json:"invalid_router_ids,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *SendCommandResponse) Reset() {
@@ -219,6 +221,20 @@ func (x *SendCommandResponse) GetStatus() string {
 		return x.Status
 	}
 	return ""
+}
+
+func (x *SendCommandResponse) GetFailedRouterIds() []string {
+	if x != nil {
+		return x.FailedRouterIds
+	}
+	return nil
+}
+
+func (x *SendCommandResponse) GetInvalidRouterIds() []string {
+	if x != nil {
+		return x.InvalidRouterIds
+	}
+	return nil
 }
 
 type PollRequest struct {
@@ -555,9 +571,11 @@ const file_my_proto_rawDesc = "" +
 	"\x12SendCommandRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x03(\tR\brouterId\x12!\n" +
 	"\fcommand_type\x18\x03 \x01(\tR\vcommandType\x12\x18\n" +
-	"\apayload\x18\x04 \x01(\tR\apayload\"-\n" +
+	"\apayload\x18\x04 \x01(\tR\apayload\"\x87\x01\n" +
 	"\x13SendCommandResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\"O\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12*\n" +
+	"\x11failed_router_ids\x18\x02 \x03(\tR\x0ffailedRouterIds\x12,\n" +
+	"\x12invalid_router_ids\x18\x03 \x03(\tR\x10invalidRouterIds\"O\n" +
 	"\vPollRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12#\n" +
 	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\"[\n" +

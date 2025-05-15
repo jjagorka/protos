@@ -31,8 +31,11 @@ message SendCommandRequest {
 }
 
 message SendCommandResponse {
-  string status = 1; // pending if ok
+  string status = 1; // "ok", "partial", "error"
+  repeated string failed_router_ids = 2;
+  repeated string invalid_router_ids = 3;
 }
+
 
 message PollRequest {
   string router_id = 1;
