@@ -499,8 +499,7 @@ func (x *AckRequest) GetAcks() []*CommandInfo {
 
 type AckResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	CommandId     string                 `protobuf:"bytes,1,opt,name=command_id,json=commandId,proto3" json:"command_id,omitempty"`
-	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"` // "ok", "error"
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -533,13 +532,6 @@ func (x *AckResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AckResponse.ProtoReflect.Descriptor instead.
 func (*AckResponse) Descriptor() ([]byte, []int) {
 	return file_my_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *AckResponse) GetCommandId() string {
-	if x != nil {
-		return x.CommandId
-	}
-	return ""
 }
 
 func (x *AckResponse) GetStatus() string {
@@ -584,11 +576,9 @@ const file_my_proto_rawDesc = "" +
 	"AckRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12#\n" +
 	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\x12'\n" +
-	"\x04acks\x18\x03 \x03(\v2\x13.router.CommandInfoR\x04acks\"D\n" +
-	"\vAckResponse\x12\x1d\n" +
-	"\n" +
-	"command_id\x18\x01 \x01(\tR\tcommandId\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status2\xf4\x01\n" +
+	"\x04acks\x18\x03 \x03(\v2\x13.router.CommandInfoR\x04acks\"%\n" +
+	"\vAckResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status2\xf4\x01\n" +
 	"\x03Api\x12=\n" +
 	"\bRegister\x12\x17.router.RegisterRequest\x1a\x18.router.RegisterResponse\x12F\n" +
 	"\vSendCommand\x12\x1a.router.SendCommandRequest\x1a\x1b.router.SendCommandResponse\x126\n" +

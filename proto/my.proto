@@ -61,6 +61,5 @@ message AckRequest {
 }
 
 message AckResponse {
-  string command_id = 1;
-  string status = 2;
+  string status = 1; // "ok", "error"
 }
