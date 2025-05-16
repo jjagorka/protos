@@ -4,7 +4,6 @@ package router;
 
 option go_package = "ionov.router.v1;routerv1";
 
-// Auth is service for managing permissions and roles.
 service Api {
   rpc Register (RegisterRequest) returns (RegisterResponse);
 
@@ -21,21 +20,18 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-  string routers_uuid = 1;
+  string router_id = 1;
 }
 
 message SendCommandRequest {
   repeated string router_id = 1;
-  string command_type = 3;
-  string payload = 4;
+  string command_type = 2;
+  string payload = 3;
 }
 
 message SendCommandResponse {
-  string status = 1; // "ok", "partial", "error"
-  repeated string failed_router_ids = 2;
-  repeated string invalid_router_ids = 3;
+  string status = 1; // "ok", "error"
 }
-
 
 message PollRequest {
   string router_id = 1;

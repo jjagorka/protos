@@ -28,8 +28,6 @@ const (
 // ApiClient is the client API for Api service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-//
-// Auth is service for managing permissions and roles.
 type ApiClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	SendCommand(ctx context.Context, in *SendCommandRequest, opts ...grpc.CallOption) (*SendCommandResponse, error)
@@ -88,8 +86,6 @@ func (c *apiClient) Ack(ctx context.Context, in *AckRequest, opts ...grpc.CallOp
 // ApiServer is the server API for Api service.
 // All implementations must embed UnimplementedApiServer
 // for forward compatibility.
-//
-// Auth is service for managing permissions and roles.
 type ApiServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	SendCommand(context.Context, *SendCommandRequest) (*SendCommandResponse, error)

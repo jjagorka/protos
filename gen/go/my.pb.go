@@ -75,7 +75,7 @@ func (x *RegisterRequest) GetIpAddress() string {
 
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RoutersUuid   string                 `protobuf:"bytes,1,opt,name=routers_uuid,json=routersUuid,proto3" json:"routers_uuid,omitempty"`
+	RouterId      string                 `protobuf:"bytes,1,opt,name=router_id,json=routerId,proto3" json:"router_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -110,9 +110,9 @@ func (*RegisterResponse) Descriptor() ([]byte, []int) {
 	return file_my_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RegisterResponse) GetRoutersUuid() string {
+func (x *RegisterResponse) GetRouterId() string {
 	if x != nil {
-		return x.RoutersUuid
+		return x.RouterId
 	}
 	return ""
 }
@@ -120,8 +120,8 @@ func (x *RegisterResponse) GetRoutersUuid() string {
 type SendCommandRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RouterId      []string               `protobuf:"bytes,1,rep,name=router_id,json=routerId,proto3" json:"router_id,omitempty"`
-	CommandType   string                 `protobuf:"bytes,3,opt,name=command_type,json=commandType,proto3" json:"command_type,omitempty"`
-	Payload       string                 `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
+	CommandType   string                 `protobuf:"bytes,2,opt,name=command_type,json=commandType,proto3" json:"command_type,omitempty"`
+	Payload       string                 `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -178,12 +178,10 @@ func (x *SendCommandRequest) GetPayload() string {
 }
 
 type SendCommandResponse struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Status           string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"` // "ok", "partial", "error"
-	FailedRouterIds  []string               `protobuf:"bytes,2,rep,name=failed_router_ids,json=failedRouterIds,proto3" json:"failed_router_ids,omitempty"`
-	InvalidRouterIds []string               `protobuf:"bytes,3,rep,name=invalid_router_ids,json=invalidRouterIds,proto3" json:"invalid_router_ids,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"` // "ok", "error"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SendCommandResponse) Reset() {
@@ -221,20 +219,6 @@ func (x *SendCommandResponse) GetStatus() string {
 		return x.Status
 	}
 	return ""
-}
-
-func (x *SendCommandResponse) GetFailedRouterIds() []string {
-	if x != nil {
-		return x.FailedRouterIds
-	}
-	return nil
-}
-
-func (x *SendCommandResponse) GetInvalidRouterIds() []string {
-	if x != nil {
-		return x.InvalidRouterIds
-	}
-	return nil
 }
 
 type PollRequest struct {
@@ -573,17 +557,15 @@ const file_my_proto_rawDesc = "" +
 	"\x0fRegisterRequest\x12#\n" +
 	"\rserial_number\x18\x01 \x01(\tR\fserialNumber\x12\x1d\n" +
 	"\n" +
-	"ip_address\x18\x02 \x01(\tR\tipAddress\"5\n" +
-	"\x10RegisterResponse\x12!\n" +
-	"\frouters_uuid\x18\x01 \x01(\tR\vroutersUuid\"n\n" +
+	"ip_address\x18\x02 \x01(\tR\tipAddress\"/\n" +
+	"\x10RegisterResponse\x12\x1b\n" +
+	"\trouter_id\x18\x01 \x01(\tR\brouterId\"n\n" +
 	"\x12SendCommandRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x03(\tR\brouterId\x12!\n" +
-	"\fcommand_type\x18\x03 \x01(\tR\vcommandType\x12\x18\n" +
-	"\apayload\x18\x04 \x01(\tR\apayload\"\x87\x01\n" +
+	"\fcommand_type\x18\x02 \x01(\tR\vcommandType\x12\x18\n" +
+	"\apayload\x18\x03 \x01(\tR\apayload\"-\n" +
 	"\x13SendCommandResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\x12*\n" +
-	"\x11failed_router_ids\x18\x02 \x03(\tR\x0ffailedRouterIds\x12,\n" +
-	"\x12invalid_router_ids\x18\x03 \x03(\tR\x10invalidRouterIds\"O\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"O\n" +
 	"\vPollRequest\x12\x1b\n" +
 	"\trouter_id\x18\x01 \x01(\tR\brouterId\x12#\n" +
 	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\"d\n" +
